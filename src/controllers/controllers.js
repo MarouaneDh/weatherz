@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API_HOST = 'https://dataservice.accuweather.com/'
-const apikey = 'Y6d09YAwA88TxGErAGIAwYwTaErmr5fF'
+const apikey = 'nZFap36Leess6JvJ0bZjspXCRTiIAE1x'
 
 export const searchCity = async (lat, lng) => {
     try {
