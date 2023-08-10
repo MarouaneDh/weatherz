@@ -5,9 +5,10 @@ import WeatherCard from '../components/WeatherCard'
 const Home = () => {
     const [lat, setLat] = useState(0)
     const [lng, setLng] = useState(0)
-    const [city, setCity] = useState(0)
+    const [city, setCity] = useState(null)
     const [weather, setWeather] = useState(null)
     const [currentWeather, setCurrentWeather] = useState(null)
+    const [error503, setError503] = useState(true)
 
     const makeWeatherIcon = (id) => {
         return id < 10 ? `https://developer.accuweather.com/sites/default/files/0${id}-s.png` :
@@ -73,9 +74,16 @@ const Home = () => {
         }
     }, [city])
 
+    useEffect(() => {
+        if (city) {
+            setError503(false)
+        }
+    }, [city])
+
+
     return (
-        weather && <div>
-            <WeatherCard continant={city.Region.LocalizedName} country={city.Country.EnglishName} city={city.AdministrativeArea.LocalizedName} iconUrl={makeWeatherIcon(weather.DailyForecasts[0].Day?.Icon)} dayWeather={weather.DailyForecasts[0].Day?.LongPhrase} temps={weather.DailyForecasts[0].Temperature} currentWeather={currentWeather} />
+        weather && currentWeather && <div>
+            <WeatherCard error={error503} continant={city.Region.LocalizedName} country={city.Country.EnglishName} city={city.AdministrativeArea.LocalizedName} iconUrl={makeWeatherIcon(weather.DailyForecasts[0].Day?.Icon)} dayWeather={weather.DailyForecasts[0].Day?.LongPhrase} temps={weather.DailyForecasts[0].Temperature} currentWeather={currentWeather} />
         </div>
     )
 }
